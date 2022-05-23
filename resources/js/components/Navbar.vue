@@ -24,6 +24,12 @@
 
                         <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">
+                            <router-link class="text-light" :to="{name: 'inicio'}">Home</router-link>
+                        </a>
+                        </li>
+
+                        <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">
                             <router-link class="text-light" :to="{name: 'tablaItems'}">TablaItems</router-link>
                         </a>
                         </li>

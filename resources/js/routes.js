@@ -1,15 +1,22 @@
 import VueRouter from "vue-router";
-import TablaMaestros from "./components/maestros/Tabla";
+import Home from "./Home";
 import FormularioCrearMaestro from "./components/maestros/FormularioCrearMaestro";
 import FormularioEditMaestro from "./components/maestros/FormularioEditarMaestro.vue";
 import FormularioCrearItem from "./components/items/FormularioCrearItem.vue";
 import TablaItems from "./components/items/Tabla.vue";
+import Inicio from "./inicio.vue";
 
 const routes = [
     {
         path: "/",
-        component: TablaMaestros,
-        name: "tablaMaestros",
+        component: Home,
+        name: "home",
+    },
+
+    {
+        path: "/inicio",
+        component: Inicio,
+        name: "inicio",
     },
 
     {

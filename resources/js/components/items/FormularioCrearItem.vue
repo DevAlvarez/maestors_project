@@ -1,6 +1,6 @@
 <template>
 
-        <div class="row justify-content-center">
+        <div class="row justify-content-start">
 
             <div class="col-4">
                 <div class="card">
@@ -8,6 +8,7 @@
                     <div class="card-body bg-dark">
 
                         <form @submit.prevent="crear">
+                            
 
                             <div class="form-gropu">
                              
@@ -40,7 +41,7 @@
 
                             <div class="col-12 mt-2">
 
-                                    <button type="submit" class="btn btn-outline-secondary w-100"><font-awesome-icon class="fa-2xl" icon="floppy-disk" /></button>
+                                     <button  class="btn btn-outline-secondary w-100" ><font-awesome-icon class="fa-2xl" icon="floppy-disk" /></button>
 
                             </div> 
                         
@@ -52,21 +53,46 @@
                 
             </div>
 
-            <div class="col-8">
-               
-                <TablaItems @selected="selected" :idMaestro="{id}" ></TablaItems>
-                   
-            </div>
+            <div class="col-md-8 mr-2">
 
-  
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped table-hover">
 
+                        <thead>
+                            <tr>
+                                <th>Id </th>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Acciones</th>
+                            </tr>                        
+                        </thead>
+                        <tbody>
+                            <tr v-for="itemMaestro in itemsMaestro" :key="itemMaestro.id">
+                                <td>{{itemMaestro.id}}</td>
+                                <td>{{itemMaestro.nombre}}</td>
+                                <td>{{itemMaestro.descripcion}}</td>     
+                                <td>
+                                    <router-link :to=' {name:"form-edit-maestro", params:{id:itemMaestro.id} }' class="btn btn-outline-light" >
+                                        <font-awesome-icon icon="pen-to-square" />
+                                    </router-link>
+                                    <a type="button" @click="deleteMaestro(itemMaestro.id)" class="btn btn-outline-danger">
+                                        <font-awesome-icon icon="trash-can" />
+                                    </a>
+                                </td>                       
+                            </tr>
 
+                        </tbody>
+
+                    </table>
+                </div>
+           </div>
 
         </div>
 
 </template>
 
 <script>
+
 import TablaItems from "./Tabla.vue"
     export default {
 
@@ -77,30 +103,26 @@ import TablaItems from "./Tabla.vue"
         
         data() {
             return {
-                name: "",
+                id_Maestro:null,
+
                 itemMaestro:{
                     nombre:"",
                     descripcion:"",
                     maestro_id:null
                 },
                 maestros: [],
-
-                id:null
-                
+                itemsMaestro: null,
+            
             };
           },
 
         mounted(){
-            this.mostrarMaestros()
+             this.mostrarMaestros()      
         },
+
 
         methods:{
 
-            selected(val){
-                this.id = val
-
-                // console.log(this.id);
-            },
 
             async mostrarMaestros(){
                 await this.axios.get('/api/maestros')
@@ -111,13 +133,40 @@ import TablaItems from "./Tabla.vue"
                     this.maestros = []
                 })
             },
-            
-           async crear(){
 
-               
+
+            selected(val){
+
+                this.id_Maestro = val;
+
+                console.log("Valor seleccionado es "+val);
+
+                console.log(this.$store);
+
+                this.$store.dispatch('setLastSearch', {
+                    maestro: val,
+                    item: val
+                });
+
+                this.axios.get(`/api/maestros/${this.id_Maestro}/items`)
+
+                .then(response=>{
+                    this.itemsMaestro=response.data.data
+                })
+                .catch(error=>{
+                    this.itemsMaestro = []
+                })
+          
+             
+            },
+            
+           async crear(){              
                 await this.axios.post('/api/items', this.itemMaestro)
                 .then(response=>{
-                    this.$router.push({name:"tablaItems"})
+                    this.$router.push({
+                        name:"inicio",
+                        params: { errors: '123' }
+                        })
                     // alert("Se ha creado el maestro")
                 })
                 .catch(error=>{
@@ -125,6 +174,8 @@ import TablaItems from "./Tabla.vue"
                 })
              }
          },
+
+         
 
         }
 

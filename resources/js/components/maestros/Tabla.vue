@@ -2,7 +2,7 @@
 
     <div class="row justify-content-center">
         
-        <div class="col-md-8">
+        <div class="col-md-12">
 
             <div class="table-responsive">
                 <table class="table table-dark table-striped table-hover">
@@ -18,7 +18,11 @@
                     <tbody>
                         <tr v-for="maestro in maestros" :key="maestro.id">
                             <td>{{maestro.id}}</td>
-                            <td>{{maestro.nombre}}</td>
+                            <td>
+                                <router-link :to="{ name: 'inicio', params: 2 }">
+                                    {{maestro.nombre}}
+                                </router-link>                              
+                            </td>
                             <td>{{maestro.descripcion}}</td>     
                             <td>
                                 <router-link :to=' {name:"form-edit-maestro", params:{id:maestro.id} }' class="btn btn-outline-light" >

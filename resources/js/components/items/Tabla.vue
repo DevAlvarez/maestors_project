@@ -9,7 +9,7 @@
 
                     <thead>
                         <tr>
-                            <th>Id</th>
+                            <th>Id: {{idMaestro.id}} </th>
                             <th>Nombre</th>
                             <th>Descripción</th>
                             <th>Acciones</th>
@@ -30,8 +30,6 @@
                             </td>                       
                         </tr>
 
-                        
-
                     </tbody>
 
                 </table>
@@ -48,32 +46,50 @@
 <script>
     export default {
 
-        props:[
-            'idMaestro'
-        ],
+        props:{
+            idMaestro:Object
+        }
+            
+        ,
         name:"tablaItems",
         data() {
             return{
-               itemMaestros: []
+            
+              itemMaestros: []
             }
         },
+    
 
-        mounted(){
-            this.mostrarItems(3)
+        created() {
+            let idMaestro = this.$store.state.lastSearch.maestro;
+            console.log("el ide es "+this.idMaestro.id);
+            axios
+                .get(`/api/maestros/${idMaestro}/items`)
+                .then(response => (this.itemMaestros = response.data.data))
+                .catch(error=>{
+                     this.itemMaestros = []
+                })
+
         },
+        
 
         methods:{
-            async mostrarItems(id){
+
+           
+
+
+            // async mostrarItems(){
+
+            //     let idEnviar = Number(this.idMaestro.id);
                 
-                // await this.axios.get('/api/items')
-                await this.axios.get(`/api/maestros/${id}/items`)
-                .then(response=>{
-                    this.itemMaestros=response.data.data
-                })
-                .catch(error=>{
-                    this.itemMaestros = []
-                })
-            },
+            //     await this.axios.get(`/api/maestros/${idEnviar}/items`)
+            //     .then(response=>{
+            //         this.itemMaestros=response.data.data
+            //     })
+            //     .catch(error=>{
+            //         this.itemMaestros = []
+            //     })
+            // },
 
             deleteMaestro(id){
                 if (confirm("¿Estás seguro de querer borrar este item?")) {

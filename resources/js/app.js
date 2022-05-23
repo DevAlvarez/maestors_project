@@ -3,6 +3,8 @@ import Vue from "vue";
 import router from "./routes"
 import Index from "./index";
 import VueRouter from "vue-router";
+import Vuex from 'vuex';
+import storeDefinition from "./store";
 
 ///////////////////////////////////////////////////////////
 //**************/   FONTAWESOME    /*********************//
@@ -20,7 +22,9 @@ import axios  from "axios";
 /* add icons to the library */
 library.add(faPhone, faPlus, faPlusCircle, faFloppyDisk, faPenFancy, faPenToSquare, faTrashCan);
 /* add font awesome icon component */
-Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('font-awesome-icon', FontAwesomeIcon);
+
+
 
 
 
@@ -28,6 +32,9 @@ window.Vue = require('vue').default;
 
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
+Vue.use(Vuex);
+
+const store = new Vuex.Store(storeDefinition);
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
@@ -35,8 +42,12 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
     router: router,
+    store,
     components: {
 
         "index": Index,
-    }
+    },
+    beforeCreate() {
+        this.$store.dispatch("loadStoredState");
+    },
 });
