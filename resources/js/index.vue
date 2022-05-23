@@ -1,9 +1,11 @@
 <template>
-    <div>
-        <!-- <router-link to="/">Maestros</router-link>
-        <router-link to="/crear-maestro">Crear</router-link> -->
+    <div class="mb-2 bg-dark text-ligth">
+
         <Navbar></Navbar>
-        <router-view></router-view> 
+        
+        <router-view class="mt-4 container-fluid"></router-view>
+        
+      
     </div>
 </template>
 <script>

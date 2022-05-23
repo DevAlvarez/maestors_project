@@ -6,7 +6,7 @@
 
                 <div class="card">
 
-                    <div class="card-header"> <h4>Crear Maestro</h4></div>
+                    <div class="card-header"> <h4>Crear ITEM</h4></div>
 
                     <div class="card-body">
 
@@ -18,9 +18,21 @@
 
                                     <div class="form-gropu">
 
+                                        <label>MAESTRO_ID</label>
+
+                                        <input type="number" class="form-control" v-model="itemMaestro.maestro_id" >
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-4 mb-2">
+
+                                    <div class="form-gropu">
+
                                         <label>Nombre</label>
 
-                                        <input type="text" class="form-control" v-model="maestro.nombre" >
+                                        <input type="text" class="form-control" v-model="itemMaestro.nombre" >
 
                                     </div>
 
@@ -30,7 +42,7 @@
                                 
                                     <div class="form-floating">
 
-                                        <textarea name="" class="form-control" id = "floatingTextarea2" v-model="maestro.descripcion" ></textarea>
+                                        <textarea name="" class="form-control" id = "floatingTextarea2" v-model="itemMaestro.descripcion" ></textarea>
 
                                         <label for="floatingTextarea2">Descripción</label>
 
@@ -60,14 +72,15 @@
 
 <script>
     export default {
-        name: "FormularioCrearMaestro",
+        name: "form-create-item",
         
         data() {
             return {
                 name: "",
-                maestro:{
+                itemMaestro:{
                     nombre:"",
-                    descripcion:""
+                    descripcion:"",
+                    maestro_id: 1
                 }
             };
           },
@@ -77,7 +90,7 @@
 
         
            async crear(){
-                await this.axios.post('/api/maestros', this.maestro)
+                await this.axios.post('/api/items', this.itemMaestro)
                 .then(response=>{
                     this.$router.push({name:"tablaMaestros"})
                 })

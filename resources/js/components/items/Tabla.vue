@@ -1,7 +1,7 @@
 <template>
 
     <div class="row justify-content-center">
-        
+
         <div class="col-md-8">
 
             <div class="table-responsive">
@@ -9,22 +9,22 @@
 
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>Id</th>
                             <th>Nombre</th>
                             <th>Descripción</th>
                             <th>Acciones</th>
                         </tr>                        
                     </thead>
                     <tbody>
-                        <tr v-for="maestro in maestros" :key="maestro.id">
-                            <td>{{maestro.id}}</td>
-                            <td>{{maestro.nombre}}</td>
-                            <td>{{maestro.descripcion}}</td>     
+                        <tr v-for="itemMaestro in itemMaestros" :key="itemMaestro.id">
+                            <td>{{itemMaestro.id}}</td>
+                            <td>{{itemMaestro.nombre}}</td>
+                            <td>{{itemMaestro.descripcion}}</td>     
                             <td>
-                                <router-link :to=' {name:"form-edit-maestro", params:{id:maestro.id} }' class="btn btn-outline-light" >
+                                <router-link :to=' {name:"form-edit-maestro", params:{id:itemMaestro.id} }' class="btn btn-info" >
                                     <font-awesome-icon icon="pen-to-square" />
                                 </router-link>
-                                <a type="button" @click="deleteMaestro(maestro.id)" class="btn btn-outline-danger">
+                                <a type="button" @click="deleteMaestro(itemMaestro.id)" class="btn btn-danger">
                                     <font-awesome-icon icon="trash-can" />
                                 </a>
                             </td>                       
@@ -47,33 +47,37 @@
 
 <script>
     export default {
-        name:"tablaMaestros",
+
+        props:[
+            'maestro'
+        ],
+        name:"tablaItems",
         data() {
             return{
-               maestros: []
+               itemMaestros: []
             }
         },
 
         mounted(){
-            this.mostrarMaestros()
+            this.mostrarItems()
         },
 
         methods:{
-            async mostrarMaestros(){
-                await this.axios.get('/api/maestros')
+            async mostrarItems(){
+                await this.axios.get('/api/items')
                 .then(response=>{
-                    this.maestros=response.data
+                    this.itemMaestros=response.data
                 })
                 .catch(error=>{
-                    this.maestros = []
+                    this.itemMaestros = []
                 })
             },
 
             deleteMaestro(id){
-                if (confirm("¿Estás seguro de querer borrar este registro?")) {
-                    this.axios.delete(`/api/maestros/${id}`)
+                if (confirm("¿Estás seguro de querer borrar este item?")) {
+                    this.axios.delete(`/api/items/${id}`)
                     .then(response=>{
-                    this.mostrarMaestros()
+                    this.mostrarItems()
                 })
                     .catch(error=>{
                     console.log("Error");
