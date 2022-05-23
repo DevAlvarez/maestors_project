@@ -4,15 +4,15 @@
 
             <div class="col-4">
                 <div class="card">
-                    <div class="card-header"> <h6>Crear items de maestros</h6></div>
-                    <div class="card-body">
+                    <div class="card-header bg-dark text-white"> <h6>Crear items de maestros</h6></div>
+                    <div class="card-body bg-dark">
 
                         <form @submit.prevent="crear">
 
                             <div class="form-gropu">
                              
 
-                                <select class="form-select" aria-label="Default select example" v-model="itemMaestro.maestro_id">
+                                <select @change="selected(itemMaestro.maestro_id)" class="form-select" aria-label="Default select example" v-model.number="itemMaestro.maestro_id">
 
                                     <option v-for="maestro in maestros" :key="maestro.id" :value="maestro.id"> {{maestro.nombre}} </option>
 
@@ -40,7 +40,7 @@
 
                             <div class="col-12 mt-2">
 
-                                    <button type="submit" class="btn btn-secondary w-100"><font-awesome-icon class="fa-2xl" icon="floppy-disk" /></button>
+                                    <button type="submit" class="btn btn-outline-secondary w-100"><font-awesome-icon class="fa-2xl" icon="floppy-disk" /></button>
 
                             </div> 
                         
@@ -54,7 +54,7 @@
 
             <div class="col-8">
                
-                <TablaItems :maestro="1"></TablaItems>
+                <TablaItems @selected="selected" :idMaestro="{id}" ></TablaItems>
                    
             </div>
 
@@ -69,8 +69,8 @@
 <script>
 import TablaItems from "./Tabla.vue"
     export default {
-        name: "form-create-item",
 
+        name: "form-create-item",
         components:{
             TablaItems,
         },
@@ -84,6 +84,8 @@ import TablaItems from "./Tabla.vue"
                     maestro_id:null
                 },
                 maestros: [],
+
+                id:null
                 
             };
           },
@@ -93,6 +95,12 @@ import TablaItems from "./Tabla.vue"
         },
 
         methods:{
+
+            selected(val){
+                this.id = val
+
+                // console.log(this.id);
+            },
 
             async mostrarMaestros(){
                 await this.axios.get('/api/maestros')
@@ -116,7 +124,8 @@ import TablaItems from "./Tabla.vue"
                     console.log(error);
                 })
              }
-         }
+         },
+
         }
 
 </script>

@@ -28,13 +28,18 @@ const routes = [
         path: "/crear-item",
         component: FormularioCrearItem,
         name: "form-create-item",
+        props:true
     },
 
     {
         path: "/tabla-item",
         component: TablaItems,
         name: "tablaItems",
+        props: true
+       
     },
+
+
 
 ];
 

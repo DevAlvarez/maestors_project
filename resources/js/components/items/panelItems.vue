@@ -6,11 +6,11 @@
 
                 <div class="card">
 
-                    <div class="card-header"> <h4>Editar Maestro</h4></div>
+                    <div class="card-header"> <h4>Crear ITEM</h4></div>
 
                     <div class="card-body">
 
-                        <form @submit.prevent="editar">
+                        <form @submit.prevent="crear">
 
                             <div class="row">
 
@@ -18,9 +18,21 @@
 
                                     <div class="form-gropu">
 
+                                        <label>MAESTRO_ID</label>
+
+                                        <input type="number" class="form-control" v-model="itemMaestro.maestro_id" >
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-4 mb-2">
+
+                                    <div class="form-gropu">
+
                                         <label>Nombre</label>
 
-                                        <input type="text" class="form-control" v-model="maestro.nombre" >
+                                        <input type="text" class="form-control" v-model="itemMaestro.nombre" >
 
                                     </div>
 
@@ -30,7 +42,7 @@
                                 
                                     <div class="form-floating">
 
-                                        <textarea name="" class="form-control" id = "floatingTextarea2" v-model="maestro.descripcion" ></textarea>
+                                        <textarea name="" class="form-control" id = "floatingTextarea2" v-model="itemMaestro.descripcion" ></textarea>
 
                                         <label for="floatingTextarea2">Descripción</label>
 
@@ -60,48 +72,33 @@
 
 <script>
     export default {
-        name: "form-edit-maestro",
+        name: "form-create-item",
         
         data() {
             return {
                 name: "",
-                maestro:{
+                itemMaestro:{
                     nombre:"",
-                    descripcion:""
+                    descripcion:"",
+                    maestro_id: 1
                 }
             };
           },
 
-        mounted(){
-            this.mostrarMaestros()
-        },
-
 
         methods:{
 
-          
-           async mostrarMaestros(){
-                this.axios.get(`/api/maestros/${this.$route.params.id}`)
+        
+           async crear(){
+                await this.axios.post('/api/items', this.itemMaestro)
                 .then(response=>{
-                    const {nombre, descripcion} = response.data
-                    this.maestro.nombre = nombre,
-                    this.maestro.descripcion= descripcion
+                    this.$router.push({name:"tablaMaestros"})
                 })
                 .catch(error=>{
                     console.log(error);
                 })
-            },
-
-            async editar(){
-                this.axios.put(`/api/maestros/${this.$route.params.id}`, this.maestro)
-                    .then(response=>{
-                        this.$router.push({name:"tablaMaestros"})
-                    })
-                    .catch(error=>{
-                    console.log(error);
-                    })
             }
-         }
+          }
         }
 
 </script>

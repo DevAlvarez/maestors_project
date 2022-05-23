@@ -21,10 +21,10 @@
                             <td>{{itemMaestro.nombre}}</td>
                             <td>{{itemMaestro.descripcion}}</td>     
                             <td>
-                                <router-link :to=' {name:"form-edit-maestro", params:{id:itemMaestro.id} }' class="btn btn-info" >
+                                <router-link :to=' {name:"form-edit-maestro", params:{id:itemMaestro.id} }' class="btn btn-outline-light" >
                                     <font-awesome-icon icon="pen-to-square" />
                                 </router-link>
-                                <a type="button" @click="deleteMaestro(itemMaestro.id)" class="btn btn-danger">
+                                <a type="button" @click="deleteMaestro(itemMaestro.id)" class="btn btn-outline-danger">
                                     <font-awesome-icon icon="trash-can" />
                                 </a>
                             </td>                       
@@ -49,7 +49,7 @@
     export default {
 
         props:[
-            'maestro'
+            'idMaestro'
         ],
         name:"tablaItems",
         data() {
@@ -59,14 +59,16 @@
         },
 
         mounted(){
-            this.mostrarItems()
+            this.mostrarItems(3)
         },
 
         methods:{
-            async mostrarItems(){
-                await this.axios.get('/api/items')
+            async mostrarItems(id){
+                
+                // await this.axios.get('/api/items')
+                await this.axios.get(`/api/maestros/${id}/items`)
                 .then(response=>{
-                    this.itemMaestros=response.data
+                    this.itemMaestros=response.data.data
                 })
                 .catch(error=>{
                     this.itemMaestros = []

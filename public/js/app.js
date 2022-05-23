@@ -20534,13 +20534,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         descripcion: "",
         maestro_id: null
       },
-      maestros: []
+      maestros: [],
+      id: null
     };
   },
   mounted: function mounted() {
     this.mostrarMaestros();
   },
   methods: {
+    selected: function selected(val) {
+      this.id = val; // console.log(this.id);
+    },
     mostrarMaestros: function mostrarMaestros() {
       var _this = this;
 
@@ -20662,7 +20666,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['maestro'],
+  props: ['idMaestro'],
   name: "tablaItems",
   data: function data() {
     return {
@@ -20670,10 +20674,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   mounted: function mounted() {
-    this.mostrarItems();
+    this.mostrarItems(3);
   },
   methods: {
-    mostrarItems: function mostrarItems() {
+    mostrarItems: function mostrarItems(id) {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
@@ -20682,8 +20686,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return _this.axios.get('/api/items').then(function (response) {
-                  _this.itemMaestros = response.data;
+                return _this.axios.get("/api/maestros/".concat(id, "/items")).then(function (response) {
+                  _this.itemMaestros = response.data.data;
                 })["catch"](function (error) {
                   _this.itemMaestros = [];
                 });
@@ -21262,11 +21266,13 @@ var routes = [{
 }, {
   path: "/crear-item",
   component: _components_items_FormularioCrearItem_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-  name: "form-create-item"
+  name: "form-create-item",
+  props: true
 }, {
   path: "/tabla-item",
   component: _components_items_Tabla_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-  name: "tablaItems"
+  name: "tablaItems",
+  props: true
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_5__["default"]({
   routes: routes,
@@ -44979,7 +44985,7 @@ var render = function () {
       _c("div", { staticClass: "card" }, [
         _vm._m(0),
         _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
+        _c("div", { staticClass: "card-body bg-dark" }, [
           _c(
             "form",
             {
@@ -44998,31 +45004,37 @@ var render = function () {
                     directives: [
                       {
                         name: "model",
-                        rawName: "v-model",
+                        rawName: "v-model.number",
                         value: _vm.itemMaestro.maestro_id,
                         expression: "itemMaestro.maestro_id",
+                        modifiers: { number: true },
                       },
                     ],
                     staticClass: "form-select",
                     attrs: { "aria-label": "Default select example" },
                     on: {
-                      change: function ($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function (o) {
-                            return o.selected
-                          })
-                          .map(function (o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.$set(
-                          _vm.itemMaestro,
-                          "maestro_id",
-                          $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        )
-                      },
+                      change: [
+                        function ($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function (o) {
+                              return o.selected
+                            })
+                            .map(function (o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return _vm._n(val)
+                            })
+                          _vm.$set(
+                            _vm.itemMaestro,
+                            "maestro_id",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        },
+                        function ($event) {
+                          return _vm.selected(_vm.itemMaestro.maestro_id)
+                        },
+                      ],
                     },
                   },
                   _vm._l(_vm.maestros, function (maestro) {
@@ -45098,7 +45110,7 @@ var render = function () {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-secondary w-100",
+                    staticClass: "btn btn-outline-secondary w-100",
                     attrs: { type: "submit" },
                   },
                   [
@@ -45119,7 +45131,12 @@ var render = function () {
     _c(
       "div",
       { staticClass: "col-8" },
-      [_c("TablaItems", { attrs: { maestro: 1 } })],
+      [
+        _c("TablaItems", {
+          attrs: { idMaestro: { id: _vm.id } },
+          on: { selected: _vm.selected },
+        }),
+      ],
       1
     ),
   ])
@@ -45129,7 +45146,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
+    return _c("div", { staticClass: "card-header bg-dark text-white" }, [
       _c("h6", [_vm._v("Crear items de maestros")]),
     ])
   },
@@ -45181,7 +45198,7 @@ var render = function () {
                       _c(
                         "router-link",
                         {
-                          staticClass: "btn btn-info",
+                          staticClass: "btn btn-outline-light",
                           attrs: {
                             to: {
                               name: "form-edit-maestro",
@@ -45200,7 +45217,7 @@ var render = function () {
                       _c(
                         "a",
                         {
-                          staticClass: "btn btn-danger",
+                          staticClass: "btn btn-outline-danger",
                           attrs: { type: "button" },
                           on: {
                             click: function ($event) {
