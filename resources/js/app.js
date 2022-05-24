@@ -47,7 +47,7 @@ const app = new Vue({
 
         "index": Index,
     },
-    beforeCreate() {
-        this.$store.dispatch("loadStoredState");
-    },
+    // beforeCreate() {
+    //     this.$store.dispatch("loadStoredState");
+    // },
 });

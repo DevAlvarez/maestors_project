@@ -14,7 +14,7 @@
                             <div class="form-gropu">
                              
 
-                                <select @change="selected(itemMaestro.maestro_id)" class="form-select" aria-label="Default select example" v-model.number="itemMaestro.maestro_id">
+                                <select @change="selected(itemMaestro.maestro_id)" class="form-select" aria-label="Default select example" v-model.number="itemMaestro.maestro_id" name="imaestro" required>
 
                                     <option v-for="maestro in maestros" :key="maestro.id" :value="maestro.id"> {{maestro.nombre}} </option>
 
@@ -27,13 +27,13 @@
 
                                 <label >Nombre</label>
 
-                                <input type="text" class="form-control" v-model="itemMaestro.nombre" >
+                                <input type="text" class="form-control" v-model="itemMaestro.nombre" name="nombre" required>
 
                             </div>
 
                             <div class="form-floating mt-2 text-dark">
                                
-                                <textarea name="" class="form-control" id = "floatingTextarea2" v-model="itemMaestro.descripcion" ></textarea>
+                                <textarea name="descripcion" class="form-control" id = "floatingTextarea2" v-model="itemMaestro.descripcion" required></textarea>
 
                                 <label for="floatingTextarea2">Descripción</label>
 
@@ -112,6 +112,7 @@ import TablaItems from "./Tabla.vue"
                 },
                 maestros: [],
                 itemsMaestro: null,
+
             
             };
           },
@@ -119,6 +120,7 @@ import TablaItems from "./Tabla.vue"
         mounted(){
              this.mostrarMaestros()      
         },
+
 
 
         methods:{
@@ -167,6 +169,7 @@ import TablaItems from "./Tabla.vue"
                 })
                 .catch(error=>{
                     console.log(error);
+                   
                 })
              },
 
@@ -188,7 +191,10 @@ import TablaItems from "./Tabla.vue"
                 })
                 } 
             }
+
          },
+
+         
 
          
 

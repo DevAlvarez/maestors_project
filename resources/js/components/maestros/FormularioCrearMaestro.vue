@@ -20,7 +20,7 @@
 
                                         <label class="text-white">Nombre</label>
 
-                                        <input type="text" class="form-control" v-model="maestro.nombre" >
+                                        <input type="text" class="form-control" v-model="maestro.nombre" required>
 
                                     </div>
 
@@ -30,7 +30,7 @@
                                 
                                     <div class="form-floating">
 
-                                        <textarea name="" class="form-control" id = "floatingTextarea2" v-model="maestro.descripcion" ></textarea>
+                                        <textarea name="" class="form-control" id = "floatingTextarea2" v-model="maestro.descripcion" required></textarea>
 
                                         <label for="floatingTextarea2">Descripción</label>
 

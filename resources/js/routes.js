@@ -1,5 +1,4 @@
 import VueRouter from "vue-router";
-// import Home from "./Home";
 import FormularioCrearMaestro from "./components/maestros/FormularioCrearMaestro";
 import FormularioEditMaestro from "./components/maestros/FormularioEditarMaestro.vue";
 import FormularioCrearItem from "./components/items/FormularioCrearItem.vue";
@@ -9,11 +8,7 @@ import MaestroItems from "./components/maestros/MaestrosItems.vue"
 import FormularioEditItem from "./components/items/FormularioEditItem.vue";
 
 const routes = [
-    // {
-    //     path: "/:id",
-    //     component: Home,
-    //     name: "home",
-    // },
+
 
     {
         path: "/",

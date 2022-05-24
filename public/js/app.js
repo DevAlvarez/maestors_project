@@ -21463,6 +21463,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -21536,10 +21537,10 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_8__["default"]({
   store: store,
   components: {
     "index": _index__WEBPACK_IMPORTED_MODULE_1__["default"]
-  },
-  beforeCreate: function beforeCreate() {
-    this.$store.dispatch("loadStoredState");
-  }
+  } // beforeCreate() {
+  //     this.$store.dispatch("loadStoredState");
+  // },
+
 });
 
 /***/ }),
@@ -21599,7 +21600,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inicio_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./inicio.vue */ "./resources/js/inicio.vue");
 /* harmony import */ var _components_maestros_MaestrosItems_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/maestros/MaestrosItems.vue */ "./resources/js/components/maestros/MaestrosItems.vue");
 /* harmony import */ var _components_items_FormularioEditItem_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/items/FormularioEditItem.vue */ "./resources/js/components/items/FormularioEditItem.vue");
- // import Home from "./Home";
 
 
 
@@ -21608,12 +21608,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var routes = [// {
-//     path: "/:id",
-//     component: Home,
-//     name: "home",
-// },
-{
+var routes = [{
   path: "/",
   component: _inicio_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
   name: "inicio"
@@ -26762,7 +26757,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.text-white[data-v-0d8272ec]{\r\n    text-decoration: none !important;\n}\n.text-white[data-v-0d8272ec]:hover{\r\n    color: darkgoldenrod !important;\r\n    text-decoration: none !important;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.text-white[data-v-0d8272ec]{\r\n    text-decoration: none !important;\n}\n.text-white[data-v-0d8272ec]:hover{\r\n    color: darkgoldenrod !important;\r\n    text-decoration: none !important;\n}\r\n\r\n/* .alto{\r\n    height: 5%!important;\r\n} */\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -45666,7 +45661,11 @@ var render = function () {
                       },
                     ],
                     staticClass: "form-select",
-                    attrs: { "aria-label": "Default select example" },
+                    attrs: {
+                      "aria-label": "Default select example",
+                      name: "imaestro",
+                      required: "",
+                    },
                     on: {
                       change: [
                         function ($event) {
@@ -45716,7 +45715,7 @@ var render = function () {
                     },
                   ],
                   staticClass: "form-control",
-                  attrs: { type: "text" },
+                  attrs: { type: "text", name: "nombre", required: "" },
                   domProps: { value: _vm.itemMaestro.nombre },
                   on: {
                     input: function ($event) {
@@ -45740,7 +45739,11 @@ var render = function () {
                     },
                   ],
                   staticClass: "form-control",
-                  attrs: { name: "", id: "floatingTextarea2" },
+                  attrs: {
+                    name: "descripcion",
+                    id: "floatingTextarea2",
+                    required: "",
+                  },
                   domProps: { value: _vm.itemMaestro.descripcion },
                   on: {
                     input: function ($event) {
@@ -45933,7 +45936,7 @@ var render = function () {
                         },
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "text" },
+                      attrs: { type: "text", required: "" },
                       domProps: { value: _vm.maestro.nombre },
                       on: {
                         input: function ($event) {
@@ -45959,7 +45962,11 @@ var render = function () {
                         },
                       ],
                       staticClass: "form-control",
-                      attrs: { name: "", id: "floatingTextarea2" },
+                      attrs: {
+                        name: "",
+                        id: "floatingTextarea2",
+                        required: "",
+                      },
                       domProps: { value: _vm.maestro.descripcion },
                       on: {
                         input: function ($event) {
@@ -46181,7 +46188,7 @@ var render = function () {
                         },
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "text" },
+                      attrs: { type: "text", required: "" },
                       domProps: { value: _vm.maestro.nombre },
                       on: {
                         input: function ($event) {
@@ -46207,7 +46214,11 @@ var render = function () {
                         },
                       ],
                       staticClass: "form-control",
-                      attrs: { name: "", id: "floatingTextarea2" },
+                      attrs: {
+                        name: "",
+                        id: "floatingTextarea2",
+                        required: "",
+                      },
                       domProps: { value: _vm.maestro.descripcion },
                       on: {
                         input: function ($event) {
@@ -46319,7 +46330,7 @@ var render = function () {
                         },
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "text" },
+                      attrs: { type: "text", required: "" },
                       domProps: { value: _vm.maestro.nombre },
                       on: {
                         input: function ($event) {
@@ -46345,7 +46356,11 @@ var render = function () {
                         },
                       ],
                       staticClass: "form-control",
-                      attrs: { name: "", id: "floatingTextarea2" },
+                      attrs: {
+                        name: "",
+                        id: "floatingTextarea2",
+                        required: "",
+                      },
                       domProps: { value: _vm.maestro.descripcion },
                       on: {
                         input: function ($event) {
@@ -46541,9 +46556,9 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row justify-content-center" }, [
-    _c("div", { staticClass: "col-md-12" }, [
-      _c("div", { staticClass: "table-responsive" }, [
+  return _c("div", { staticClass: "row justify-content-center h-25" }, [
+    _c("div", { staticClass: "col-md-12 " }, [
+      _c("div", { staticClass: "table-responsive overflow-scroll" }, [
         _c(
           "table",
           { staticClass: "table table-dark table-striped table-hover" },
@@ -46713,7 +46728,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    [_c("TablaMaestros"), _vm._v(" "), _c("FormularioCrearItem")],
+    [_c("FormularioCrearItem"), _vm._v(" "), _c("TablaMaestros")],
     1
   )
 }

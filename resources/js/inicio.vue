@@ -1,9 +1,10 @@
 <template>
 
     <div>
+        <FormularioCrearItem></FormularioCrearItem>
         <TablaMaestros></TablaMaestros>
         
-        <FormularioCrearItem></FormularioCrearItem>
+        
         
     </div>
 

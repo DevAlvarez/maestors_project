@@ -1,10 +1,10 @@
 <template>
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-center h-25">
         
-        <div class="col-md-12">
+        <div class="col-md-12 ">
 
-            <div class="table-responsive">
+            <div class="table-responsive overflow-scroll">
                 <table class="table table-dark table-striped table-hover">
 
                     <thead>
@@ -97,4 +97,8 @@
     color: darkgoldenrod !important;
     text-decoration: none !important;
 }
+
+/* .alto{
+    height: 5%!important;
+} */
 </style>

@@ -37,6 +37,8 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
+
+
         $item = Item::create($request->post());
         
         return response()->json([
