@@ -2,10 +2,11 @@
 
         <div class="row justify-content-start">
 
-            <div class="col-4">
+            <div class="col-4 mt-4">
                 <div class="card">
                     <div class="card-header bg-dark text-white"> <h6>Crear items de maestros</h6></div>
-                    <div class="card-body bg-dark">
+                    
+                    <div class="card-body bg-dark text-white">
 
                         <form @submit.prevent="crear">
                             
@@ -24,15 +25,14 @@
 
                             <div class="form-gropu mt-2">
 
-                                <label>Nombre</label>
+                                <label >Nombre</label>
 
                                 <input type="text" class="form-control" v-model="itemMaestro.nombre" >
 
                             </div>
 
-                            <div class="form-floating mt-2">
-
-                                
+                            <div class="form-floating mt-2 text-dark">
+                               
                                 <textarea name="" class="form-control" id = "floatingTextarea2" v-model="itemMaestro.descripcion" ></textarea>
 
                                 <label for="floatingTextarea2">Descripción</label>
@@ -54,7 +54,7 @@
             </div>
 
             <div class="col-md-8 mr-2">
-
+                
                 <div class="table-responsive">
                     <table class="table table-dark table-striped table-hover">
 
@@ -72,10 +72,10 @@
                                 <td>{{itemMaestro.nombre}}</td>
                                 <td>{{itemMaestro.descripcion}}</td>     
                                 <td>
-                                    <router-link :to=' {name:"form-edit-maestro", params:{id:itemMaestro.id} }' class="btn btn-outline-light" >
+                                    <router-link :to=' {name:"form-edit-item", params:{id:itemMaestro.id} }' class="btn btn-outline-light" >
                                         <font-awesome-icon icon="pen-to-square" />
                                     </router-link>
-                                    <a type="button" @click="deleteMaestro(itemMaestro.id)" class="btn btn-outline-danger">
+                                    <a type="button" @click="deleteItem(itemMaestro.id)" class="btn btn-outline-danger">
                                         <font-awesome-icon icon="trash-can" />
                                     </a>
                                 </td>                       
@@ -137,16 +137,8 @@ import TablaItems from "./Tabla.vue"
 
             selected(val){
 
+
                 this.id_Maestro = val;
-
-                console.log("Valor seleccionado es "+val);
-
-                console.log(this.$store);
-
-                this.$store.dispatch('setLastSearch', {
-                    maestro: val,
-                    item: val
-                });
 
                 this.axios.get(`/api/maestros/${this.id_Maestro}/items`)
 
@@ -163,16 +155,39 @@ import TablaItems from "./Tabla.vue"
            async crear(){              
                 await this.axios.post('/api/items', this.itemMaestro)
                 .then(response=>{
-                    this.$router.push({
-                        name:"inicio",
-                        params: { errors: '123' }
-                        })
-                    // alert("Se ha creado el maestro")
+
+                    this.axios.get(`/api/maestros/${this.id_Maestro}/items`)
+
+                    .then(response=>{
+                        this.itemsMaestro=response.data.data
+                    })
+                    .catch(error=>{
+                        this.itemsMaestro = []
+                    })
                 })
                 .catch(error=>{
                     console.log(error);
                 })
-             }
+             },
+
+             deleteItem(id){
+                if (confirm("¿Estás seguro de querer borrar este item?")) {
+                    this.axios.delete(`/api/items/${id}`)
+                    .then(response=>{
+                    // this.mostrarItems()
+                    this.axios.get(`/api/maestros/${this.id_Maestro}/items`)
+                    .then(response=>{
+                        this.itemsMaestro=response.data.data
+                    })
+                    .catch(error=>{
+                        this.itemsMaestro = []
+                    })
+                })
+                    .catch(error=>{
+                    console.log("Error");
+                })
+                } 
+            }
          },
 
          

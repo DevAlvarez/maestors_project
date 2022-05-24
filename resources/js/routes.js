@@ -1,20 +1,22 @@
 import VueRouter from "vue-router";
-import Home from "./Home";
+// import Home from "./Home";
 import FormularioCrearMaestro from "./components/maestros/FormularioCrearMaestro";
 import FormularioEditMaestro from "./components/maestros/FormularioEditarMaestro.vue";
 import FormularioCrearItem from "./components/items/FormularioCrearItem.vue";
 import TablaItems from "./components/items/Tabla.vue";
 import Inicio from "./inicio.vue";
+import MaestroItems from "./components/maestros/MaestrosItems.vue"
+import FormularioEditItem from "./components/items/FormularioEditItem.vue";
 
 const routes = [
-    {
-        path: "/",
-        component: Home,
-        name: "home",
-    },
+    // {
+    //     path: "/:id",
+    //     component: Home,
+    //     name: "home",
+    // },
 
     {
-        path: "/inicio",
+        path: "/",
         component: Inicio,
         name: "inicio",
     },
@@ -45,6 +47,21 @@ const routes = [
         props: true
        
     },
+
+    {
+        path: "/maestro-items/:id",
+        component: MaestroItems,
+        name: "maestroItems",
+        props: true
+       
+    },
+
+    {
+        path: "/editar-item",
+        component: FormularioEditItem,
+        name:'form-edit-item',
+        props: true
+    }
 
 
 

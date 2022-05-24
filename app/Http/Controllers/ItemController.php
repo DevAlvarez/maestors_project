@@ -88,7 +88,7 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Maestro $item)
+    public function destroy(Item $item)
     {
         $item->delete();
 

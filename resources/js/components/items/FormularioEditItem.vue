@@ -6,7 +6,7 @@
 
                 <div class="card">
 
-                    <div class="card-header bg-dark text-white"> <h4>Editar Maestro</h4></div>
+                    <div class="card-header bg-dark text-white"> <h4>Editar Item</h4></div>
 
                     <div class="card-body bg-dark">
 
@@ -81,7 +81,8 @@
 
           
            async mostrarMaestros(){
-                this.axios.get(`/api/maestros/${this.$route.params.id}`)
+               this.axios.get(`/api/items/${this.$route.params.id}`)
+                
                 .then(response=>{
                     const {nombre, descripcion} = response.data
                     this.maestro.nombre = nombre,
@@ -93,7 +94,7 @@
             },
 
             async editar(){
-                this.axios.put(`/api/maestros/${this.$route.params.id}`, this.maestro)
+                this.axios.put(`/api/items/${this.$route.params.id}`, this.maestro)
                     .then(response=>{
                         this.$router.push({name:"inicio"})
                     })
